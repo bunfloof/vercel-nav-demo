@@ -1,6 +1,6 @@
-import DeploymentsTable from '@/components/deployments';
+import DeploymentsTable from "@/components/deployments";
 
-export default function Page({
+export default async function Page({
   params,
 }: {
   params: {
@@ -8,8 +8,10 @@ export default function Page({
     section?: string[];
   };
 }) {
-  let section = params.section?.[0] || 'home';
-  if (section === 'home') {
+  const { section: sectionParam } = await params;
+  let section = sectionParam?.[0] || "home";
+
+  if (section === "home") {
     return (
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <DeploymentsTable />

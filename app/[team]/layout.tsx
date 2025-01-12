@@ -1,4 +1,4 @@
-import { Badge } from '@/components/ui/badge';
+import { Badge } from "@/components/ui/badge";
 import {
   DropdownMenuTrigger,
   DropdownMenuLabel,
@@ -7,13 +7,13 @@ import {
   DropdownMenuGroup,
   DropdownMenuContent,
   DropdownMenu,
-} from '@/components/ui/dropdown-menu';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
-import Image from 'next/image';
-import { cn } from '@/lib/utils';
-import { Suspense } from 'react';
-import { BellIcon, ChevronDownIcon } from 'lucide-react';
+} from "@/components/ui/dropdown-menu";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import Image from "next/image";
+import { cn } from "@/lib/utils";
+import { Suspense } from "react";
+import { BellIcon, ChevronDownIcon } from "lucide-react";
 
 async function getTeam(team: string) {
   let res = await fetch(`https://api.github.com/users/${team}`);
@@ -61,7 +61,7 @@ async function Avatar({ id }: { id: string }) {
   );
 }
 
-export default function SectionLayout({
+export default async function SectionLayout({
   children,
   params,
 }: {
@@ -70,6 +70,8 @@ export default function SectionLayout({
     team: string;
   };
 }) {
+  const { team } = await params;
+
   return (
     <>
       <nav className="bg-white shadow">
@@ -84,7 +86,7 @@ export default function SectionLayout({
                         <div className="h-8 w-48 bg-slate-200 animate-pulse" />
                       }
                     >
-                      <Team id={params.team} />
+                      <Team id={team} />
                     </Suspense>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent className="w-56">
@@ -94,8 +96,8 @@ export default function SectionLayout({
                       <Link href="/rauchg">
                         <DropdownMenuItem
                           className={cn(
-                            { 'bg-slate-50': params.team === 'rauchg' },
-                            'cursor-pointer',
+                            { "bg-slate-50": team === "rauchg" },
+                            "cursor-pointer"
                           )}
                         >
                           rauchg
@@ -104,8 +106,8 @@ export default function SectionLayout({
                       <Link href="/shadcn">
                         <DropdownMenuItem
                           className={cn(
-                            { 'bg-slate-50': params.team === 'shadcn' },
-                            'cursor-pointer',
+                            { "bg-slate-50": team === "shadcn" },
+                            "cursor-pointer"
                           )}
                         >
                           shadcn
@@ -114,8 +116,8 @@ export default function SectionLayout({
                       <Link href="/leerob">
                         <DropdownMenuItem
                           className={cn(
-                            { 'bg-slate-50': params.team === 'leerob' },
-                            'cursor-pointer',
+                            { "bg-slate-50": team === "leerob" },
+                            "cursor-pointer"
                           )}
                         >
                           leerob
@@ -140,7 +142,7 @@ export default function SectionLayout({
                   <div className="w-8 h-8 bg-slate-200 rounded-full animate-pulse" />
                 }
               >
-                <Avatar id={params.team} />
+                <Avatar id={team} />
               </Suspense>
             </div>
           </div>
